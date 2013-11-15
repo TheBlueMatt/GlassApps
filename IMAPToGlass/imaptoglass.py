@@ -7,7 +7,6 @@ import httplib2
 import time
 import shutil
 import os
-import atexit
 
 # Define constants
 # Google API client_id and client_secret
@@ -33,9 +32,15 @@ code = raw_input('Code? ')
 
 # Set up credentials and mirror service
 creds = flow.step2_exchange(code)
-http = httplib2.Http()
-http = creds.authorize(http)
-mirror_service = build('mirror', 'v1', http=http)
+mirror_service = None
+
+def create_service():
+	global mirror_service
+	http = httplib2.Http()
+	http = creds.authorize(http)
+	mirror_service = build('mirror', 'v1', http=http)
+
+create_service()
 
 # Register for Subscription callbacks (do this only once)
 """post_body = {
@@ -99,7 +104,16 @@ while True:
 			print("Fetching (" + message[0] + ", " + message[1] + ")")
 			status, data = mail.uid("FETCH", m, "(RFC822)")
 			assert status == "OK"
-			id = post(format_message(f, data[0][1]))
+			id = None
+			for i in range(10):
+				try:
+					id = post(format_message(f, data[0][1]))
+					break
+				except:
+					if i == 9:
+						raise
+					time.sleep(1)
+					create_service()
 			message_to_id[message] = id
 			id_to_message[id] = message
 
@@ -108,7 +122,15 @@ while True:
 	for m in message_to_id:
 		if not m in still_unread:
 			print("Removing (" + m[0] + ", " + m[1] + ")")
-			remove_item(message_to_id[m])
+			for i in range(10):
+				try:
+					remove_item(message_to_id[m])
+					break
+				except:
+					if i == 9:
+						raise
+					time.sleep(1)
+					create_service()
 			removed.add(m)
 	for m in removed:
 		del id_to_message[message_to_id[m]]
@@ -138,4 +160,3 @@ while True:
 	
 	# Pound on the IMAP Server, but we're light on Glass calls, so its OK
 	time.sleep(1)
-
