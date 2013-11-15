@@ -1,5 +1,8 @@
 A place to put my dumb Glass Apps that are designed to be useful to me...
-If you expect code quality, have fun...
+All of these apps were hacked together until they functioned, and no
+more. Some of the code wes literally written drunk, so don't expect anything.
+In fact, if you can even get things to compile or not crash when you start
+them, I'll be surprised.
 
 AGPL because its restrictive, but I'll freely relicense under whatever
 you want, if you put in the effort to tell me why I should.

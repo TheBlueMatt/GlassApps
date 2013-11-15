@@ -1,0 +1,6 @@
+A REALLY dumb music controller that takes bytes off a bluetooth
+socket from glass and interprets them as button pushes on your
+android phone. Requires root on the phone. Doesn't even bother
+to launch at startup, open the activity once to start listening.
+Crashes if you have any number of bluetooth devices attached but
+1.
