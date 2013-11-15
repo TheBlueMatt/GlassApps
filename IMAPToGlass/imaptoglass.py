@@ -7,6 +7,7 @@ import httplib2
 import time
 import shutil
 import os
+import unicodedata
 
 # Define constants
 # Google API client_id and client_secret
@@ -68,9 +69,16 @@ def clear_timeline():
 		remove_item(item['id'])
 
 # Define some useful IMAP Functions
+printable = set(['L', 'N', 'P', 'S', 'Z']) # Letter, Number, Punctuation, Symbol, Separator
+def strip_control_chars(s):
+	# LTR stops here...
+	return ''.join(c for c in unicode(s) if unicodedata.category(c)[0] in printable)
+
 def format_message(folder, raw_message):
-	message = email.message_from_string(data[0][1])
-	return folder + "\nFrom: " + message['From'] + "\nSubj: " + message['Subject']
+	message = email.message_from_string(unicode(data[0][1], errors='ignore'))
+	src, encoding = email.header.decode_header(message['From'])[0]
+	subj, encoding = email.header.decode_header(message['Subject'])[0]
+	return folder + "\nFrom: " + strip_control_chars(src) + "\nSubj: " + strip_control_chars(subj)
 
 # Set up IMAP
 mail = IMAP4_SSL('127.0.0.1')
