@@ -1,6 +1,6 @@
 A place to put my dumb Glass Apps that are designed to be useful to me...
 All of these apps were hacked together until they functioned, and no
-more. Some of the code wes literally written drunk, so don't expect anything.
+more. Some of the code was literally written drunk, so don't expect anything.
 In fact, if you can even get things to compile or not crash when you start
 them, I'll be surprised.
 
