@@ -1,0 +1,7 @@
+A simple Python app that connects to a local IMAP server and keeps
+the set of unread messages in the timeline.
+Designed for my own personal server, so it updates very often and
+gets glass subscriptions from a CGI script that dumps them to
+/tmp/glass_unread instead of sending them between servers or so.
+Yes, using DELETE for "mark unread" goes against Glass' design docs
+but, oh well.
