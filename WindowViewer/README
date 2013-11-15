@@ -1,0 +1,16 @@
+Really dumb app that "streams" contents of windows in X to your glass.
+Manually add the set of windows you want (found with xwininfo -tree -root | grep XXXXX)
+by typing "+WINDOW_ID" (eg +0x400cda), remove ones you no longer want with
+"-WINDOW_ID", switch to one instantly with just "WINDOW_ID" and set a special
+window with "chrome WINDOW_ID".
+
+It started as a way to control the music playing in my Google Music pinned tab
+in chrome, and then also becaome a window "streamer", so its kinda a bastard
+combo at this point. But, if you have Google Music playing in tab 3 in chrome,
+its very useful to skip/play/pause/volume (just presses array keys, space and
++/-, so other players may work too, change xkeyin.c if you like).
+
+Note that "streaming" is in quotes because it literally shoves a new PNG down
+the wire multiple times a second, so...yes, this will kill your Glass' battery
+in under an hour. Still, if you want to check on that long-running app in your
+terminal and then go away, this does come in handy.
