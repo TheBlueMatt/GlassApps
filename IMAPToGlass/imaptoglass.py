@@ -72,7 +72,7 @@ def clear_timeline():
 printable = set(['L', 'N', 'P', 'S', 'Z']) # Letter, Number, Punctuation, Symbol, Separator
 def strip_control_chars(s):
 	# LTR stops here...
-	return ''.join(c for c in unicode(s) if unicodedata.category(c)[0] in printable)
+	return ''.join(c for c in unicode(s, errors='ignore') if unicodedata.category(c)[0] in printable)
 
 def format_message(folder, raw_message):
 	message = email.message_from_string(unicode(data[0][1], errors='ignore'))
