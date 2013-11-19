@@ -25,7 +25,8 @@ CALLBACK_URL=
 flow = OAuth2WebServerFlow(client_id=CLIENT_ID,
 				client_secret=CLIENT_SECRET,
 				scope="https://www.googleapis.com/auth/glass.timeline",
-				redirect_uri="http://localhost/oauth2callback")
+				redirect_uri="http://localhost/oauth2callback",
+				access_type='offline', approval_prompt='force')
 
 print("Go to: " + flow.step1_get_authorize_url())
 code = raw_input('Code? ')
